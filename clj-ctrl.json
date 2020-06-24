@@ -1,0 +1,10 @@
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+	"name": "clj-ctrl",
+	"labels": {
+	    "name": "clj-ctrl"
+	}
+    }
+}

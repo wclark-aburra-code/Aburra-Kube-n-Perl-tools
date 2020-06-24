@@ -1,0 +1,38 @@
+eapiVersion: v1
+kind: Service
+metadata:
+  name: clj-pedestal-sse
+  namespace: clj-ctrl
+  labels:
+    app: clj-pedestal-sse
+spec:
+  ports:
+  - port: 8080
+    name: web
+  clusterIP: None
+  selector:
+    app: clj-pedestal-sse
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+  namespace: clj-ctrl
+spec:
+  selector:
+    matchLabels:
+      app: clj-pedestal-sse
+  serviceName: "clj-pedestal-sse"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: clj-pedestal-sse
+    spec:
+      containers:
+      - name: clj-pedestal-sse
+        image: wclarkmc/clj-pedestal-sse
+        ports:
+        - containerPort: 8080
+          name: web
+
